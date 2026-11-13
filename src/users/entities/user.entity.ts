@@ -5,6 +5,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { DATE_COLUMN_TYPE } from '../../common/database/column-types';
 
 @Entity({ name: 'users' })
 export class User {
@@ -29,9 +30,9 @@ export class User {
   @Column({ name: 'must_change_password', default: false })
   mustChangePassword: boolean;
 
-  @CreateDateColumn({ name: 'created_at', type: 'datetime' })
+  @CreateDateColumn({ name: 'created_at', type: DATE_COLUMN_TYPE })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updated_at', type: 'datetime' })
+  @UpdateDateColumn({ name: 'updated_at', type: DATE_COLUMN_TYPE })
   updatedAt: Date;
 }

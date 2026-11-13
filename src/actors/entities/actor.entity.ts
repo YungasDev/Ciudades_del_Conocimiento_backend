@@ -7,6 +7,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { DATE_COLUMN_TYPE } from '../../common/database/column-types';
 import { Media } from '../../media/entities/media.entity';
 
 @Entity({ name: 'actors' })
@@ -45,7 +46,7 @@ export class Actor {
   @Column({ default: false })
   consent: boolean;
 
-  @Column({ name: 'consent_at', type: 'datetime', nullable: true })
+  @Column({ name: 'consent_at', type: DATE_COLUMN_TYPE, nullable: true })
   consentAt: Date | null;
 
   @Column({ name: 'consent_note', type: 'text', nullable: true })
@@ -54,12 +55,12 @@ export class Actor {
   @Column({ default: 0 })
   order: number;
 
-  @CreateDateColumn({ name: 'created_at', type: 'datetime' })
+  @CreateDateColumn({ name: 'created_at', type: DATE_COLUMN_TYPE })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updated_at', type: 'datetime' })
+  @UpdateDateColumn({ name: 'updated_at', type: DATE_COLUMN_TYPE })
   updatedAt: Date;
 
-  @Column({ name: 'deleted_at', type: 'datetime', nullable: true })
+  @Column({ name: 'deleted_at', type: DATE_COLUMN_TYPE, nullable: true })
   deletedAt: Date | null;
 }

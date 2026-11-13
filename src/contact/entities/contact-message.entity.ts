@@ -4,6 +4,7 @@ import {
   Entity,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { DATE_COLUMN_TYPE } from '../../common/database/column-types';
 
 @Entity({ name: 'contact_messages' })
 export class ContactMessage {
@@ -31,6 +32,6 @@ export class ContactMessage {
   @Column({ default: false })
   read: boolean;
 
-  @CreateDateColumn({ name: 'created_at', type: 'datetime' })
+  @CreateDateColumn({ name: 'created_at', type: DATE_COLUMN_TYPE })
   createdAt: Date;
 }

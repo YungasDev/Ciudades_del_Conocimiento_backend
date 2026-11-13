@@ -6,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { DATE_COLUMN_TYPE } from '../../common/database/column-types';
 import { Post } from '../../posts/entities/post.entity';
 
 @Entity({ name: 'categories' })
@@ -28,10 +29,10 @@ export class Category {
   @Column({ default: 0 })
   order: number;
 
-  @CreateDateColumn({ name: 'created_at', type: 'datetime' })
+  @CreateDateColumn({ name: 'created_at', type: DATE_COLUMN_TYPE })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updated_at', type: 'datetime' })
+  @UpdateDateColumn({ name: 'updated_at', type: DATE_COLUMN_TYPE })
   updatedAt: Date;
 
   @OneToMany(() => Post, (post) => post.category)

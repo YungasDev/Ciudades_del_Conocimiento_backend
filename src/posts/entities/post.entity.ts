@@ -8,6 +8,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Category } from '../../categories/entities/category.entity';
+import { DATE_COLUMN_TYPE } from '../../common/database/column-types';
 import { Media } from '../../media/entities/media.entity';
 import { User } from '../../users/entities/user.entity';
 
@@ -34,7 +35,7 @@ export class Post {
   @Column({ default: false })
   featured: boolean;
 
-  @Column({ name: 'published_at', type: 'datetime', nullable: true })
+  @Column({ name: 'published_at', type: DATE_COLUMN_TYPE, nullable: true })
   publishedAt: Date | null;
 
   @Column({ name: 'cover_media_id', type: 'uuid', nullable: true })
@@ -66,12 +67,12 @@ export class Post {
   @Column({ name: 'seo_description', type: 'varchar', length: 300, nullable: true })
   seoDescription: string | null;
 
-  @CreateDateColumn({ name: 'created_at', type: 'datetime' })
+  @CreateDateColumn({ name: 'created_at', type: DATE_COLUMN_TYPE })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updated_at', type: 'datetime' })
+  @UpdateDateColumn({ name: 'updated_at', type: DATE_COLUMN_TYPE })
   updatedAt: Date;
 
-  @Column({ name: 'deleted_at', type: 'datetime', nullable: true })
+  @Column({ name: 'deleted_at', type: DATE_COLUMN_TYPE, nullable: true })
   deletedAt: Date | null;
 }
