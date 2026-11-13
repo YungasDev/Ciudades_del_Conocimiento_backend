@@ -28,6 +28,10 @@ function databaseOptions(config: ConfigService): TypeOrmModuleOptions {
   };
 
   if (config.get<string>('DB_TYPE') === 'postgres') {
+    const sslEnabled = config.get<string>('DB_SSL') === 'true';
+    const rejectUnauthorized =
+      config.get<string>('DB_SSL_REJECT_UNAUTHORIZED', 'false') === 'true';
+
     return {
       ...common,
       type: 'postgres',
@@ -36,6 +40,9 @@ function databaseOptions(config: ConfigService): TypeOrmModuleOptions {
       username: config.get<string>('DB_USERNAME', 'ciudades'),
       password: config.get<string>('DB_PASSWORD', 'ciudades'),
       database: config.get<string>('DB_NAME', 'ciudades'),
+      // Aiven exige TLS. Para la demo se acepta el certificado del servidor;
+      // en producción conviene configurar la CA y rejectUnauthorized: true.
+      ssl: sslEnabled ? { rejectUnauthorized } : false,
     };
   }
 

@@ -9,6 +9,7 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { Repository } from 'typeorm';
 import { Actor } from '../actors/entities/actor.entity';
+import { uploadsDir } from '../common/utils/uploads-dir';
 import { Post } from '../posts/entities/post.entity';
 import { Media } from './entities/media.entity';
 
@@ -29,7 +30,7 @@ interface UploadedFile {
 
 @Injectable()
 export class MediaService {
-  private readonly uploadsDir = join(process.cwd(), 'uploads');
+  private readonly uploadsDir = uploadsDir();
 
   constructor(
     @InjectRepository(Media)

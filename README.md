@@ -121,6 +121,44 @@ El frontend Angular está en:
 
 <https://github.com/YungasDev/Ciudades_del_Conocimiento_frontend>
 
+## Deploy en Render + Aiven
+
+El repo incluye `render.yaml` para crear el servicio web en Render.
+
+1. En Render: **New** → **Blueprint** → elegir este repositorio.
+2. Render lee `render.yaml` y pide completar las variables marcadas con `sync: false`:
+   - `DB_HOST`
+   - `DB_PORT`
+   - `DB_USERNAME`
+   - `DB_PASSWORD`
+   - `ADMIN_PASSWORD`
+   - `CORS_ORIGIN`
+3. Esos datos salen de Aiven → PostgreSQL → **Connection information**.
+4. `DB_NAME` por defecto es `defaultdb`; ajustar si el servicio usa otro nombre.
+5. En Aiven, permitir las IP de salida de Render. Para la demo se puede
+   permitir temporalmente `0.0.0.0/0` y restringir después.
+6. El servicio queda en una URL del tipo
+   `https://ciudades-conocimiento-api.onrender.com`.
+
+Variables importantes para Aiven:
+
+```env
+DB_TYPE=postgres
+DB_SSL=true
+DB_SSL_REJECT_UNAUTHORIZED=false
+```
+
+`DB_SSL_REJECT_UNAUTHORIZED=false` es aceptable para la demo. En producción
+conviene usar el certificado CA de Aiven y ponerlo en `true`.
+
+Notas de Render:
+
+- El plan gratuito se duerme por inactividad; la primera visita puede tardar.
+- El disco es efímero: las imágenes subidas desde el panel se pierden al
+  reiniciar o desplegar. Para conservarlas hace falta un disco persistente y
+  configurar `UPLOAD_DIR` (por ejemplo `/var/data/uploads`).
+- Health check: `/api/health`.
+
 ## Docker
 
 El `Dockerfile` y el `docker-compose.yml` del proyecto general permiten levantar la API con PostgreSQL y Nginx.
